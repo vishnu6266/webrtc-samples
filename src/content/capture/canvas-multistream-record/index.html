@@ -36,20 +36,34 @@
     <h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a> <span>Record multiple stream from a canvas</span>
     </h1>
 
+    
     <canvas>
-
-
-        <center><video id="webcamvideo" width="640" height="480" autoplay></video></center>
-
+        
     </canvas>
+
+    <video id="gum" playsinline autoplay muted></video>
+
     <video id="recorded" playsinline loop></video>
 
     <div>
+        <button id="start">Start camera</button>
         <button id="record">Start Recording</button>
         <button id="play" disabled>Play</button>
         <button id="download" disabled>Download</button>
     </div>
 
+    <div>
+        Recording format: <select id="codecPreferences" disabled></select>
+    </div>
+    <div>
+        <h4>Media Stream Constraints options</h4>
+        <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
+    </div>
+
+    <div>
+        <span id="errorMsg"></span>
+    </div>
+    
     <p>Click and drag on the canvas (on the left) to move the teapot.</p>
 
     <p>This demo requires Firefox 43 or above, Chrome 51 or above, or Chrome 50 with <strong>Experimental Web Platform
