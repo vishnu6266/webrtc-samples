@@ -87,12 +87,17 @@ function prepareCanvas() {
     })();
   }, 0);
 
-  //write to canvasd
-  setTimeout(() => {
-    canvas.getContext('2d').drawImage(gumVideo, 100, 100, 200, 200); 
-  }, 1000 / 30); // drawing at 30fps
-
   leftVideo.play();
+
+  gumVideo.addEventListener('loadedmetadata', function() {
+    var $this = this; //cache
+    (function loop() {
+      if (!$this.paused && !$this.ended) {
+        ctx.drawImage($this,  100, 100, 200, 200);
+        setTimeout(loop, 1000 / 30); // drawing at 30fps
+      }
+    })();
+  }, 0);
   
 }
 
