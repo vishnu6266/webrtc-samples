@@ -72,8 +72,42 @@ function toggleRecording() {
   }
 }
 
+function prepareCanvas() {
+
+  var ctx = canvas.getContext('2d');
+
+  leftVideo.addEventListener('play', function() {
+    var $this = this; //cache
+    (function loop() {
+      if (!$this.paused && !$this.ended) {
+        ctx.drawImage($this, 0, 0, 100, 100);
+        setTimeout(loop, 1000 / 30); // drawing at 30fps
+      }
+    })();
+  }, 0);
+
+  gumVideo.addEventListener('play', function() {
+    var $this = this; //cache
+    (function loop() {
+      if (!$this.paused && !$this.ended) {
+        ctx.drawImage($this, 100, 100, 200, 200);
+        setTimeout(loop, 1000 / 30); // drawing at 30fps
+      }
+    })();
+  }, 0);
+
+  leftVideo.play();
+  gumVideo.play();
+  
+}
+
+
+
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
+
+  prepareCanvas();
+
   let options = {mimeType: 'video/webm'};
   recordedBlobs = [];
   try {
@@ -161,10 +195,6 @@ function handleSuccess(stream) {
     codecPreferences.appendChild(option);
   });
   codecPreferences.disabled = false;
-
-  var ctx = canvas.getContext('2d');
-  ctx.drawImage(leftVideo, 0, 0, 100, 100);
-  ctx.drawImage(gumVideo, 100, 100, 200, 200);
 
 
 }
