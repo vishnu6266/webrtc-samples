@@ -28,7 +28,6 @@ const errorMsgElement = document.querySelector('span#errorMsg');
 
 const canvas = document.querySelector('canvas');
 const leftVideo = document.getElementById('leftVideo');
-const gumVideo = document.getElementById('gum');
 const video = document.getElementById('recorded');
 
 const recordButton = document.querySelector('button#record');
@@ -87,18 +86,12 @@ function prepareCanvas() {
     })();
   }, 0);
 
-  gumVideo.addEventListener('play', function() {
-    var $this = this; //cache
-    (function loop() {
-      if (!$this.paused && !$this.ended) {
-        ctx.drawImage($this, 100, 100, 200, 200);
-        setTimeout(loop, 1000 / 30); // drawing at 30fps
-      }
-    })();
-  }, 0);
+  //write to canvasd
+  setTimeout(() => {
+    canvas.getContext('2d').drawImage(gumVideo, 100, 100, 200, 200); 
+  }, 1000 / 30); // drawing at 30fps
 
   leftVideo.play();
-  gumVideo.play();
   
 }
 
@@ -106,8 +99,6 @@ function prepareCanvas() {
 
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
-
-  prepareCanvas();
 
   let options = {mimeType: 'video/webm'};
   recordedBlobs = [];
@@ -148,7 +139,7 @@ function stopRecording() {
   video.controls = true;
 }
 
-function play() {
+function play() {  
   video.play();
 }
 
@@ -197,6 +188,7 @@ function handleSuccess(stream) {
   });
   codecPreferences.disabled = false;
 
+  prepareCanvas();
 
 }
 
