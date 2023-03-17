@@ -37,7 +37,7 @@ playButton.onclick = play;
 downloadButton.onclick = download;
 
 // Start the GL teapot on the canvas
-main();
+//main();
 
 const stream = canvas.captureStream(); // frames per second
 console.log('Started stream capture from canvas element: ', stream);
