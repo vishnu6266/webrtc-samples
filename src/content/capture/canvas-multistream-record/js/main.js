@@ -27,6 +27,7 @@ const errorMsgElement = document.querySelector('span#errorMsg');
 
 
 const canvas = document.querySelector('canvas');
+const leftVideo = document.getElementById('leftVideo');
 const video = document.getElementById('recorded');
 
 const recordButton = document.querySelector('button#record');
@@ -160,6 +161,12 @@ function handleSuccess(stream) {
     codecPreferences.appendChild(option);
   });
   codecPreferences.disabled = false;
+
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(leftVideo, 0, 0, 100, 100);
+  ctx.drawImage(gumVideo, 100, 100, 200, 200);
+
+
 }
 
 async function init(constraints) {
