@@ -99,7 +99,7 @@ function toggleRecording() {
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
 
-  let options = {mimeType: 'video/webm'};
+  let options = {audio: true,mimeType: 'video/webm'};
   recordedBlobs = [];
   try {
     mediaRecorder = new MediaRecorder(stream, options);
