@@ -27,8 +27,9 @@ const errorMsgElement = document.querySelector('span#errorMsg');
 
 
 const canvas = document.querySelector('canvas');
-const leftVideo = document.getElementById('leftVideo');
-const video = document.getElementById('recorded');
+const gumVideo = document.querySelector('video#gum');
+const leftVideo = document.querySelector('video#leftVideo');
+const video = document.querySelector('video#recorded');
 
 const recordButton = document.querySelector('button#record');
 const playButton = document.querySelector('button#play');
@@ -177,7 +178,6 @@ function handleSuccess(stream) {
   console.log('getUserMedia() got stream:', stream);
   window.stream = stream;
 
-  const gumVideo = document.querySelector('video#gum');
   gumVideo.srcObject = stream;
 
   getSupportedMimeTypes().forEach(mimeType => {
