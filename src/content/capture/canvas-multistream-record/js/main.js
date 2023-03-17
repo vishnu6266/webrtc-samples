@@ -28,6 +28,7 @@ const errorMsgElement = document.querySelector('span#errorMsg');
 
 const canvas = document.querySelector('canvas');
 const leftVideo = document.getElementById('leftVideo');
+const gumVideo = document.getElementById('gum');
 const video = document.getElementById('recorded');
 
 const recordButton = document.querySelector('button#record');
