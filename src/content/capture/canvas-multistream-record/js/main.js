@@ -54,10 +54,8 @@ var ctx = canvas.getContext('2d');
   gumVideo.addEventListener('loadedmetadata', function() {
     var $this = this; //cache
     (function loop() {
-      if (!$this.paused && !$this.ended) {
-        ctx.drawImage($this,  100, 100, 200, 200);
-        setTimeout(loop, 1000 / 30); // drawing at 30fps
-      }
+      ctx.drawImage($this,  100, 100, 200, 200);
+      setTimeout(loop, 1000 / 30); // drawing at 30fps
     })();
   }, 0);
 
