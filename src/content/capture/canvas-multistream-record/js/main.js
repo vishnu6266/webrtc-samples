@@ -20,6 +20,7 @@ mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
 let mediaRecorder;
 let recordedBlobs;
 let sourceBuffer;
+let micdeviceId;
 
 const codecPreferences = document.querySelector('#codecPreferences');
 
@@ -38,6 +39,8 @@ recordButton.onclick = toggleRecording;
 playButton.onclick = play;
 downloadButton.onclick = download;
 
+
+//draw to canvas
 
 var ctx = canvas.getContext('2d');
 
@@ -99,7 +102,7 @@ function toggleRecording() {
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
 
-  let options = {audio: true,mimeType: 'video/webm'};
+  let options = {audio: {deviceId: micdeviceId },mimeType: 'video/webm'};
   recordedBlobs = [];
   try {
     mediaRecorder = new MediaRecorder(stream, options);
@@ -170,11 +173,12 @@ function getSupportedMimeTypes() {
   });
 }
 
-
 function handleSuccess(stream) {
   recordButton.disabled = false;
   console.log('getUserMedia() got stream:', stream);
   window.stream = stream;
+
+  micdeviceId = stream.getAudioTracks()[0].deviceId;
 
   gumVideo.srcObject = stream;
 
