@@ -103,7 +103,7 @@ function startRecording() {
 
   const combinedStream = new MediaStream();
   combinedStream.addTrack(stream.getVideoTracks()[0]);
-  combinedStream.addTrack(leftVideo.srcObject..getAudioTracks()[0]);
+  combinedStream.addTrack(leftVideo.srcObject.getAudioTracks()[0]);
   combinedStream.addTrack(gumVideo.srcObject.getAudioTracks()[0]);
   
   let options = {mimeType: 'video/webm'};
