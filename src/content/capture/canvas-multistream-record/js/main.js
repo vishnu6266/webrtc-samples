@@ -70,12 +70,12 @@ const startDrawing = () => {
 
 // requestAnimationFrame loop. Each frame, we draw to the canvas.
 const loop = () => {
-  draw();	
+  drawCanvas();	
   requestAnimationFrame(loop);
 }
 
 // our drawing function
-const draw = () => {
+const drawCanvas = () => {
   // 👈 DRAWING COMMANDS HERE!
   ctx.drawImage(leftVideo, 0, 0, 150, 150);
   ctx.drawImage(gumVideo, 150, 0, 300, 300);
