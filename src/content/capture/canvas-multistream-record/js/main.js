@@ -20,7 +20,6 @@ mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
 let mediaRecorder;
 let recordedBlobs;
 let sourceBuffer;
-let micdeviceId;
 
 const codecPreferences = document.querySelector('#codecPreferences');
 
@@ -44,6 +43,7 @@ downloadButton.onclick = download;
 
 var ctx = canvas.getContext('2d');
 
+/*
   leftVideo.addEventListener('play', function() {
     var $this = this; //cache
     (function loop() {
@@ -61,7 +61,25 @@ var ctx = canvas.getContext('2d');
       setTimeout(loop, 1000 / 60); // drawing at 30fps
     })();
   }, 0);
+*/
 
+// kick off the drawing process 
+const startDrawing = () => {
+  requestAnimationFrame(loop);
+}
+
+// requestAnimationFrame loop. Each frame, we draw to the canvas.
+const loop = () => {
+  draw();	
+  requestAnimationFrame(loop);
+}
+
+// our drawing function
+const draw = () => {
+  // 👈 DRAWING COMMANDS HERE!
+  ctx.drawImage(leftVideo, 0, 0, 150, 150);
+  ctx.drawImage(gumVideo, 150, 0, 300, 300);
+}
 
 
 // Start the GL teapot on the canvas
@@ -102,7 +120,7 @@ function toggleRecording() {
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
 
-  let options = {audio: {deviceId: micdeviceId },mimeType: 'video/webm'};
+  let options = {mimeType: 'video/webm'};
   recordedBlobs = [];
   try {
     mediaRecorder = new MediaRecorder(stream, options);
@@ -177,8 +195,6 @@ function handleSuccess(stream) {
   recordButton.disabled = false;
   console.log('getUserMedia() got stream:', stream);
   window.stream = stream;
-
-  micdeviceId = stream.getAudioTracks()[0].deviceId;
 
   gumVideo.srcObject = stream;
 
