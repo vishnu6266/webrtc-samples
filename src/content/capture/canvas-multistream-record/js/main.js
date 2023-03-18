@@ -101,7 +101,7 @@ function toggleRecording() {
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
 
-  const combinedStream = new MediaStreamTrack([
+  const combinedStream = new MediaStream([
     stream.getTracks()
     //,
     //gumVideo.srcObject.getAudioTracks()
