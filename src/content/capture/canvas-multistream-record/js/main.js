@@ -43,7 +43,6 @@ downloadButton.onclick = download;
 
 var ctx = canvas.getContext('2d');
 
-/*
   leftVideo.addEventListener('play', function() {
     var $this = this; //cache
     (function loop() {
@@ -61,25 +60,7 @@ var ctx = canvas.getContext('2d');
       setTimeout(loop, 1000 / 60); // drawing at 30fps
     })();
   }, 0);
-*/
 
-// kick off the drawing process 
-const startDrawing = () => {
-  requestAnimationFrame(loop);
-}
-
-// requestAnimationFrame loop. Each frame, we draw to the canvas.
-const loop = () => {
-  drawCanvas();	
-  requestAnimationFrame(loop);
-}
-
-// our drawing function
-const drawCanvas = () => {
-  // 👈 DRAWING COMMANDS HERE!
-  ctx.drawImage(leftVideo, 0, 0, 150, 150);
-  ctx.drawImage(gumVideo, 150, 0, 300, 300);
-}
 
 
 // Start the GL teapot on the canvas
@@ -120,20 +101,25 @@ function toggleRecording() {
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
 
+  const combinedStream = new MediaStream([
+    stream.getTracks(),
+    gumVideo.srcObject.getAudioTracks()
+  ]);
+
   let options = {mimeType: 'video/webm'};
   recordedBlobs = [];
   try {
-    mediaRecorder = new MediaRecorder(stream, options);
+    mediaRecorder = new MediaRecorder(combinedStream, options);
   } catch (e0) {
     console.log('Unable to create MediaRecorder with options Object: ', e0);
     try {
       options = {mimeType: 'video/webm,codecs=vp9'};
-      mediaRecorder = new MediaRecorder(stream, options);
+      mediaRecorder = new MediaRecorder(combinedStream, options);
     } catch (e1) {
       console.log('Unable to create MediaRecorder with options Object: ', e1);
       try {
         options = 'video/vp8'; // Chrome 47
-        mediaRecorder = new MediaRecorder(stream, options);
+        mediaRecorder = new MediaRecorder(combinedStream, options);
       } catch (e2) {
         alert('MediaRecorder is not supported by this browser.\n\n' +
           'Try Firefox 29 or later, or Chrome 47 or later, ' +
