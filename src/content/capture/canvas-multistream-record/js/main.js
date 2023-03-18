@@ -102,8 +102,9 @@ function toggleRecording() {
 function startRecording() {
 
   const combinedStream = new MediaStreamTrack([
-    stream.getTracks(),
-    gumVideo.srcObject.getAudioTracks()
+    stream.getTracks()
+    //,
+    //gumVideo.srcObject.getAudioTracks()
   ]);
 
   let options = {mimeType: 'video/webm'};
